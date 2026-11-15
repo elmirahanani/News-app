@@ -1,36 +1,76 @@
+
 import 'package:flutter/material.dart';
 
 import '../../../../data/models/article.dart';
 import '../../../widgets/article_image.dart';
 import '../../../widgets/bookmark_button.dart';
 
-/// App bar dengan gambar besar yang menyusut saat di-scroll.
 class DetailAppBar extends StatelessWidget {
-  const DetailAppBar({super.key, required this.article});
+  const DetailAppBar({
+    super.key,
+    required this.article,
+  });
 
   final Article article;
 
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      pinned: true,
-      stretch: true,
-      expandedHeight: 300,
-      leading: Padding(
-        padding: const EdgeInsets.all(6),
-        child: IconButton.filledTonal(
-          tooltip: 'Kembali',
-          icon: const Icon(Icons.arrow_back_rounded),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ),
-      actions: [
-        BookmarkButton(article: article, tonal: true),
-        const SizedBox(width: 8),
-      ],
+      pinned: false,
+      floating: false,
+      automaticallyImplyLeading: false,
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.transparent,
+      elevation: 0,
+      toolbarHeight: 0,
+      expandedHeight: 250,
+
       flexibleSpace: FlexibleSpaceBar(
-        stretchModes: const [StretchMode.zoomBackground],
-        background: ArticleImage(url: article.imageUrl, radius: 0),
+        background: Stack(
+          fit: StackFit.expand,
+          children: [
+            ArticleImage(
+              url: article.imageUrl,
+              radius: 0,
+            ),
+
+            // Tombol kembali
+            Positioned(
+              top: MediaQuery.of(context).padding.top + 12,
+              left: 16,
+              child: CircleAvatar(
+                radius: 23,
+                backgroundColor: Colors.black.withOpacity(0.7),
+                child: IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(
+                    Icons.arrow_back_rounded,
+                    color: Colors.white,
+                    size: 23,
+                  ),
+                ),
+              ),
+            ),
+
+            // Bookmark
+            Positioned(
+              top: MediaQuery.of(context).padding.top + 12,
+              right: 16,
+              child: Container(
+                width: 46,
+                height: 46,
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.7),
+                  shape: BoxShape.circle,
+                ),
+                child: BookmarkButton(
+                  article: article,
+                  tonal: true,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

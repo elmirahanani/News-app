@@ -1,22 +1,50 @@
+
 import 'package:flutter/material.dart';
 
 import '../../../../core/utils/url_helper.dart';
 
-/// Tombol "Baca artikel lengkap" yang menempel di bawah layar.
 class ReadMoreBar extends StatelessWidget {
-  const ReadMoreBar({super.key, required this.url});
+  const ReadMoreBar({
+    super.key,
+    required this.url,
+  });
 
   final String url;
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      minimum: const EdgeInsets.fromLTRB(20, 8, 20, 16),
-      child: FilledButton.icon(
-        style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(52)),
-        icon: const Icon(Icons.open_in_new_rounded),
-        label: const Text('Baca artikel lengkap'),
-        onPressed: () => UrlHelper.open(context, url),
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.fromLTRB(
+        18,
+        8,
+        18,
+        MediaQuery.of(context).padding.bottom > 0 ? 8 : 14,
+      ),
+      child: SizedBox(
+        height: 46,
+        child: FilledButton.icon(
+          onPressed: () => UrlHelper.open(context, url),
+          style: FilledButton.styleFrom(
+            backgroundColor: const Color(0xFF171717),
+            foregroundColor: Colors.white,
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(13),
+            ),
+          ),
+          icon: const Icon(
+            Icons.open_in_new_rounded,
+            size: 17,
+          ),
+          label: const Text(
+            'Baca artikel lengkap',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
       ),
     );
   }

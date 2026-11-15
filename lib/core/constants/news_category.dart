@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 /// Kategori berita yang didukung oleh endpoint top-headlines NewsAPI.
 enum NewsCategory {
   general('Utama'),
